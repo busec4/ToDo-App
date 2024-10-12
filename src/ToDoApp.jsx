@@ -122,9 +122,10 @@ function ToDoApp(){
                             {task.edited ? (<input type="text" defaultValue={task.text} onChange={(e) => handleEditTask(e,index)}/>):(
                             <span>{task.text}</span>
                             )}
-
+                            <div className='button'>
                             <button className="edit" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
                             <button className="delete" onClick={() => handleDeleteTask(index)}>Delete</button> 
+                            </div>
                         </li>
                     )
                     )}
