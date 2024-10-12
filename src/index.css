@@ -1,0 +1,139 @@
+body {
+  background-image:url(./assets/ToDoPic.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #be3f96;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.todo-container{
+  display: block;
+  width: 500px;
+  margin: 10px auto 100px;
+  background-color:#f7eaea;
+  padding:5px 15px 15px 15px;
+  border-radius:15px;
+}
+
+h2 {
+  text-align: center;
+}
+
+ul {
+  margin: 10px;
+  padding: 5px;
+
+}
+
+li * {
+  float: left;
+}
+
+li,
+h3 {
+  clear: both;
+  list-style: none;
+}
+
+input{
+  border-radius: 10px;
+  border: none;
+  color: #e1a0a0;
+  padding: 9px;
+  font-size: 18px;
+  line-height: 18px;
+  height: 18px;
+  width: 400px;
+}
+
+input:focus{
+  color: #ed5858;
+}
+
+button{
+  border: none;
+  border-radius: 10px;
+  color: azure;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+#delete-btn{
+  background-color: #c690e3;
+
+}
+
+#edit-btn{
+  background-color: rgb(135, 240, 240);
+}
+
+#add-btn{
+  background-color: #8495ea;
+}
+
+h3,
+label[for='new-task'] {
+  color: #be3f96;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 1px solid #be3f96;
+  padding: 20px 0 10px;
+  margin: 1px;
+  text-transform: uppercase;
+}
+
+label[for='new-task'] {
+  display: block;
+  margin: 0 0 20px;
+}
+
+input#new-task {
+  float: left;
+  width: 318px;
+}
+
+li {
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+li > input[type="checkbox"] {
+  margin: 0 10px;
+  position: relative;
+  top: 15px;
+}
+
+li > label {
+  font-size: 18px;
+  line-height: 40px;
+  width: 237px;
+  padding: 0 0 0 11px;
+}
+
+li > input[type="text"] {
+  width: 226px;
+}
+
+li > .delete:hover {
+  color: #CF2323;
+}
+
+#completed-tasks label {
+  text-decoration: line-through;
+  color: #888;
+}
+ul li input[type=text] {
+  display: none;
+}
+
+ul li.editMode input[type=text] {
+  display: block;
+}
+
+ul li.editMode label {
+  display: none;
+}
