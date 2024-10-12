@@ -21,14 +21,14 @@ function tasksReducer(tasks, action){
             return tasks.filter((_,index) => index !== action.id);
         }
         case "changeEdit": {
-            return tasks.map((task,index) =>{
+            return tasks.map((task,index) =>
                 index === action.id ? {...task, edited: !task.edited} : task
-            })
+            )
         }
         case "edited": {
-            return tasks.map((task,index) =>{
-                index === action.id ? {...task, text: action.text} : task
-            })
+            return tasks.map((task,index) =>
+                index === action.id ? {...task,text:action.text} : task
+            )
         }
         case "completed": {
             return tasks.map((task,index) => 
@@ -80,7 +80,8 @@ function ToDoApp(){
         const editedText = e.target.value;
         dispatch({
             type:'edited',
-            payload:{id:index,text:editedText.trim()}
+            id:index,
+            text:editedText.trim(),
         });
     }
     function handleCompleteTasks(index){
@@ -91,6 +92,7 @@ function ToDoApp(){
     }
     return(
         <div className="todo-container">
+            
                 <h2>TODO LIST</h2>
                 <h3>Add Item</h3>
                 <p>
@@ -100,34 +102,33 @@ function ToDoApp(){
                 <h3>TODO</h3>
                 <ul className="incomplete-tasks">
                     {tasks.map((task, index) =>(!task.done && 
-                    <>
+                    
                         <div>
                             <input type="checkbox"  checked={task.done} onClick={() => handleCompleteTasks(index)} />
                             {task.edited ? (<input type="text" defaultValue={task.text} onChange={(e) => handleEditTask(e,index)}/>):(
                             <li  key={task.id}>{task.text}</li>
                             )}
 
-                            <button id="edit-btn" onClick={() => handleEditChange(index)}>Edit</button>
+                             <button id="edit-btn" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
                             <button id="delete-btn" onClick={() => handleDeleteTask(index)}>Delete</button>
+
                         </div>
-                        </>
+                    
                     )
                     )}
                 </ul>
                 <h3>COMPLETE</h3>
                 <ul className="complete-tasks">
                     {tasks.map((task, index) =>(task.done && 
-                    <>
                         <div>
                             <input type="checkbox"  checked={task.done} onClick={() => handleCompleteTasks(index)} />
                             {task.edited ? (<input type="text" defaultValue={task.text} onChange={(e) => handleEditTask(e,index)}/>):(
                             <li  key={task.id}>{task.text}</li>
                             )}
+                                <button id="edit-btn" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
+                                <button id="delete-btn" onClick={() => handleDeleteTask(index)}>Delete</button>
 
-                            <button id="edit-btn" onClick={() => handleEditChange(index)}>{task.edited ? "Save" : "Edit"}</button>
-                            <button id="delete-btn" onClick={() => handleDeleteTask(index)}>Delete</button>
                         </div>
-                        </>
                     )
                     )}
                 </ul>
