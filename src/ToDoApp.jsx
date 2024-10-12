@@ -23,17 +23,17 @@ function tasksReducer(tasks, action){
         case "changeEdit": {
             return tasks.map((task,index) =>
                 index === action.id ? {...task, edited: !task.edited} : task
-            )
+            );
         }
         case "edited": {
             return tasks.map((task,index) =>
                 index === action.id ? {...task,text:action.text} : task
-            )
+            );
         }
         case "completed": {
             return tasks.map((task,index) => 
                 index === action.id ? {...task, done: !task.done} : task
-            )
+            );
         }
         default: {
             throw Error('Unknown Action' + action.type);
@@ -49,7 +49,7 @@ function ToDoApp(){
     })
 
     useEffect(() =>{
-        localStorage.setItem("tasks",JSON.stringify(tasks))
+        localStorage.setItem("tasks",JSON.stringify(tasks));
     },[tasks]);
     const inputRef = useRef(null);
     // const editRef = useRef(null);
@@ -92,43 +92,40 @@ function ToDoApp(){
     }
     return(
         <div className="todo-container">
-            
                 <h2>TODO LIST</h2>
                 <h3>Add Item</h3>
                 <p>
-                    <input ref={inputRef} placeholder="Enter New Task"  />
-                    <button id='add-btn' onClick={handleAddedTask}>Add</button>
+                    <input className="new-task" ref={inputRef} placeholder="Enter New Task"  />
+                    <button className='add-btn' onClick={handleAddedTask}>Add</button>
                 </p>
                 <h3>TODO</h3>
                 <ul className="incomplete-tasks">
                     {tasks.map((task, index) =>(!task.done && 
-                    
-                        <div>
+                        <li  key={task.id}  className={task.edited ? "editMode" : ""}>
                             <input type="checkbox"  checked={task.done} onClick={() => handleCompleteTasks(index)} />
-                            {task.edited ? (<input type="text" defaultValue={task.text} onChange={(e) => handleEditTask(e,index)}/>):(
-                            <li  key={task.id}>{task.text}</li>
+                            {task.edited ? (<input type="text" value={task.text} onChange={(e) => handleEditTask(e,index)}/>):(
+                            <span>{task.text}</span>
                             )}
-
-                             <button id="edit-btn" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
-                            <button id="delete-btn" onClick={() => handleDeleteTask(index)}>Delete</button>
-
-                        </div>
-                    
+                            <div className='button'>
+                            <button className="edit" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
+                            <button className="delete" onClick={() => handleDeleteTask(index)}>Delete</button>
+                            </div>
+                        </li>
                     )
                     )}
                 </ul>
                 <h3>COMPLETE</h3>
-                <ul className="complete-tasks">
+                <ul className="completed-tasks">
                     {tasks.map((task, index) =>(task.done && 
-                        <div>
+                        <li  key={task.id} className={task.edited ? "editMode" : ""}>
                             <input type="checkbox"  checked={task.done} onClick={() => handleCompleteTasks(index)} />
                             {task.edited ? (<input type="text" defaultValue={task.text} onChange={(e) => handleEditTask(e,index)}/>):(
-                            <li  key={task.id}>{task.text}</li>
+                            <span>{task.text}</span>
                             )}
-                                <button id="edit-btn" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
-                                <button id="delete-btn" onClick={() => handleDeleteTask(index)}>Delete</button>
 
-                        </div>
+                            <button className="edit" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
+                            <button className="delete" onClick={() => handleDeleteTask(index)}>Delete</button> 
+                        </li>
                     )
                     )}
                 </ul>
