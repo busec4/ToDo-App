@@ -1,5 +1,5 @@
 import React, {act, useEffect, useReducer,useRef} from 'react';
-import { v4 as uuidv4 } from 'uuid';
+
 
 
 /*
@@ -58,7 +58,7 @@ function ToDoApp(){
         if (text.trim() !== "") {
             dispatch({
                 type: 'added',
-                payload:{text: text.trim(),id:uuidv4(),done:false,edited:false}
+                payload:{text: text.trim(),done:false,edited:false}
             });
             inputRef.current.value = '';
         }
