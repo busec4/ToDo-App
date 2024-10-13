@@ -1,6 +1,5 @@
-import React, {act, useEffect, useReducer,useRef} from 'react';
-
-
+import React, { useEffect, useReducer,useRef} from 'react';
+import ToDoTasks from './ToDoTasks.jsx';
 
 /*
     yapılacaklar:tasks {
@@ -64,32 +63,8 @@ function ToDoApp(){
         }
         
     }
-    function handleDeleteTask(index){
-        dispatch({
-            type:'deleted',
-            id:index,
-        })
-    }
-    function handleEditChange(index){
-        dispatch({
-            type:'changeEdit',
-            id:index,
-        })
-    }
-    function handleEditTask(e,index){
-        const editedText = e.target.value;
-        dispatch({
-            type:'edited',
-            id:index,
-            text:editedText.trim(),
-        });
-    }
-    function handleCompleteTasks(index){
-        dispatch({
-            type:'completed',
-            id:index,
-        })
-    }
+
+
     return(
         <div className="todo-container">
                 <h2>TODO LIST</h2>
@@ -100,33 +75,29 @@ function ToDoApp(){
                 </p>
                 <h3>TODO</h3>
                 <ul className="incomplete-tasks">
-                    {tasks.map((task, index) =>(!task.done && 
-                        <li  key={task.id}  className={task.edited ? "editMode" : ""}>
-                            <input type="checkbox"  checked={task.done} onClick={() => handleCompleteTasks(index)} />
-                            {task.edited ? (<input type="text" value={task.text} onChange={(e) => handleEditTask(e,index)}/>):(
-                            <span>{task.text}</span>
-                            )}
-                            <div className='button'>
-                            <button className="edit" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
-                            <button className="delete" onClick={() => handleDeleteTask(index)}>Delete</button>
-                            </div>
-                        </li>
+                    {tasks.map((task, index) =>!task.done && (
+                    <ToDoTasks
+                    key = {index} 
+                    task = {task}
+                    index = {index}
+                    handleCompleteTasks = {(index) => dispatch({type:'completed',id:index})}
+                    handleEditChange = {(index) => dispatch({type:'changeEdit',id:index})}
+                    handleDeleteTask = {(index) => dispatch({type:'deleted',id:index})}
+                    handleEditTask = {(e,index) => dispatch({type:'edited',id:index,text:e.target.value.trim()})}/>
                     )
                     )}
                 </ul>
                 <h3>COMPLETE</h3>
                 <ul className="completed-tasks">
-                    {tasks.map((task, index) =>(task.done && 
-                        <li  key={task.id} className={task.edited ? "editMode" : ""}>
-                            <input type="checkbox"  checked={task.done} onClick={() => handleCompleteTasks(index)} />
-                            {task.edited ? (<input type="text" defaultValue={task.text} onChange={(e) => handleEditTask(e,index)}/>):(
-                            <span>{task.text}</span>
-                            )}
-                            <div className='button'>
-                            <button className="edit" onClick={() => handleEditChange(index)}>{task.edited ? "save" : "edit"}</button>
-                            <button className="delete" onClick={() => handleDeleteTask(index)}>Delete</button> 
-                            </div>
-                        </li>
+                    {tasks.map((task, index) => task.done && (
+                    <ToDoTasks
+                    key = {index} 
+                    task = {task}
+                    index = {index}
+                    handleCompleteTasks = {(index) => dispatch({type:'completed',id:index})}
+                    handleEditChange = {(index) => dispatch({type:'changeEdit',id:index})}
+                    handleDeleteTask = {(index) => dispatch({type:'deleted',id:index})}
+                    handleEditTask = {(e,index) => dispatch({type:'edited',id:index,text:e.target.value.trim()})}/>
                     )
                     )}
                 </ul>
